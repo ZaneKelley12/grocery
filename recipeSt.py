@@ -1,7 +1,11 @@
 import random
 import streamlit as st
 from collections import defaultdict
-import streamlit.components.v1 as components
+import pandas as pd
+import io
+import base64
+from datetime import datetime
+from github import Github
 
 # ==== Recipe Catalog ====
 recipeDinner = {
@@ -18,10 +22,9 @@ recipeDinner = {
 days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
 
-# ==== Grocery List Function ====
-def grocer(randPlan):
+def grocer(plan):
     grocList = []
-    for x in randPlan.values():
+    for x in plan.values():
         if x in recipeDinner:
             grocList.append(recipeDinner[x])
 
@@ -47,86 +50,121 @@ def grocer(randPlan):
     return sorted(result)
 
 
-# ==== Custom JS copy-to-clipboard button ====
-def copy_to_clipboard(text):
-    js = f"""
-    <script>
-    function copyTextToClipboard() {{
-        navigator.clipboard.writeText(`{text}`).then(() => {{
-            alert('Copied grocery list to clipboard!');
-        }});
-    }}
-    </script>
-    <button onclick="copyTextToClipboard()" style="padding:8px 16px; margin-top:10px;">Copy to Clipboard</button>
-    """
-    components.html(js)
+def update_github_file_append_with_timestamp(repo_name, file_path, new_plan_df, commit_message):
+    token = st.secrets["GITHUB_TOKEN"]
+    g = Github(token)
+    repo = g.get_repo(repo_name)
+
+    # Add timestamp column to new data
+    new_plan_df["Timestamp"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    try:
+        # Get existing file content
+        file = repo.get_contents(file_path)
+        existing_content = base64.b64decode(file.content).decode("utf-8")
+
+        # Read existing CSV into DataFrame
+        existing_df = pd.read_csv(io.StringIO(existing_content))
+
+        # Append new data
+        combined_df = pd.concat([existing_df, new_plan_df], ignore_index=True)
+
+        # Remove exact duplicates
+        combined_df.drop_duplicates(inplace=True)
+
+        # Convert back to CSV string
+        csv_buffer = io.StringIO()
+        combined_df.to_csv(csv_buffer, index=False)
+        updated_content = csv_buffer.getvalue()
+
+        # Update file on GitHub
+        repo.update_file(file.path, commit_message, updated_content, file.sha)
+    except Exception:
+        # If file doesn't exist, create fresh
+        csv_buffer = io.StringIO()
+        new_plan_df.to_csv(csv_buffer, index=False)
+        repo.create_file(file_path, commit_message, csv_buffer.getvalue())
 
 
-# ==== Streamlit UI ====
+# --- Streamlit UI ---
+
 st.title("Weekly Meal Planner")
-st.sidebar.header("Menu Options")
 
 menu_choice = st.sidebar.radio(
     "Choose an option:",
     ["View recipe book", "Randomly generate weekly plan", "Manually create weekly plan"]
 )
 
-
-def display_editable_grocery_list(plan_key):
-    grocery_list = grocer(st.session_state[plan_key])
-    grocery_text = "\n".join(grocery_list)
-
-    edited_key = f"edited_grocery_{plan_key}"
-    if edited_key not in st.session_state:
-        st.session_state[edited_key] = grocery_text
-
-    st.subheader("Editable Grocery List")
-    edited_text = st.text_area("Edit your grocery list below:", st.session_state[edited_key], height=200)
-    st.session_state[edited_key] = edited_text
-
-    col1, _ = st.columns(2)
-    with col1:
-        if st.button("Reset List"):
-            st.session_state[edited_key] = grocery_text
-            st.experimental_rerun()
-
-    copy_to_clipboard(st.session_state[edited_key])
-
-
-# --- Option 1: View Recipe Book ---
+# --- Option 1: View recipe book ---
 if menu_choice == "View recipe book":
     st.subheader("Recipe Book")
     for recipe, ingredients in recipeDinner.items():
         with st.expander(recipe):
             st.write(", ".join(ingredients))
 
-# --- Option 2: Randomly Generate Plan ---
+# --- Option 2: Randomly generate weekly plan ---
 elif menu_choice == "Randomly generate weekly plan":
     if "randPlan" not in st.session_state:
         keys = list(recipeDinner.keys())
         random.shuffle(keys)
         st.session_state.randPlan = {days[i]: keys[i] for i in range(len(days))}
 
-    col1, col2 = st.columns(2)
+    col1, col2, col3 = st.columns([1, 1, 1])
     with col1:
         if st.button("Rerandomize"):
             keys = list(recipeDinner.keys())
             random.shuffle(keys)
             st.session_state.randPlan = {days[i]: keys[i] for i in range(len(days))}
-
     with col2:
         if st.button("Generate Grocery List"):
-            display_editable_grocery_list("randPlan")
+            grocery_list = grocer(st.session_state.randPlan)
+            st.subheader("Grocery List")
+            for item in grocery_list:
+                st.write(item)
+            # Copy to clipboard button with styled HTML
+            copy_text = "\n".join(grocery_list)
+            st.markdown(f"""
+                <style>
+                .copy-btn {{
+                    background-color: #4CAF50;
+                    border: none;
+                    color: white;
+                    padding: 8px 16px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    font-size: 14px;
+                    margin: 4px 2px;
+                    cursor: pointer;
+                    border-radius: 4px;
+                }}
+                </style>
+                <button class="copy-btn" onclick="navigator.clipboard.writeText(`{copy_text}`).then(() => alert('Copied to clipboard!'));">Copy Grocery List</button>
+                """, unsafe_allow_html=True)
+    with col3:
+        if st.button("Append weekly plan CSV on GitHub"):
+            try:
+                plan_df = pd.DataFrame(list(st.session_state.randPlan.items()), columns=["Day", "Recipe"])
+                update_github_file_append_with_timestamp(
+                    "ZaneKelley12/grocery",  # Replace with your GitHub repo path
+                    "weekly_meal_plan.csv",
+                    plan_df,
+                    "Append random weekly meal plan CSV with timestamp from Streamlit app"
+                )
+                st.success("GitHub file updated with appended data and timestamp!")
+            except Exception as e:
+                st.error(f"Error updating GitHub file: {e}")
 
     st.subheader("Weekly Plan")
     for day in days:
         st.session_state.randPlan[day] = st.selectbox(
             f"{day}:",
             list(recipeDinner.keys()),
-            index=list(recipeDinner.keys()).index(st.session_state.randPlan[day])
+            index=list(recipeDinner.keys()).index(st.session_state.randPlan[day]),
+            key=f"rand_{day}"
         )
 
-# --- Option 3: Manually Create Plan ---
+# --- Option 3: Manually create weekly plan ---
 elif menu_choice == "Manually create weekly plan":
     if "manPlan" not in st.session_state:
         st.session_state.manPlan = {day: list(recipeDinner.keys())[0] for day in days}
@@ -136,8 +174,44 @@ elif menu_choice == "Manually create weekly plan":
         st.session_state.manPlan[day] = st.selectbox(
             f"{day}:",
             list(recipeDinner.keys()),
-            index=list(recipeDinner.keys()).index(st.session_state.manPlan[day])
+            index=list(recipeDinner.keys()).index(st.session_state.manPlan[day]),
+            key=f"man_{day}"
         )
 
     if st.button("Generate Grocery List"):
-        display_editable_grocery_list("manPlan")
+        grocery_list = grocer(st.session_state.manPlan)
+        st.subheader("Grocery List")
+        for item in grocery_list:
+            st.write(item)
+        copy_text = "\n".join(grocery_list)
+        st.markdown(f"""
+            <style>
+            .copy-btn {{
+                background-color: #4CAF50;
+                border: none;
+                color: white;
+                padding: 8px 16px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 14px;
+                margin: 4px 2px;
+                cursor: pointer;
+                border-radius: 4px;
+            }}
+            </style>
+            <button class="copy-btn" onclick="navigator.clipboard.writeText(`{copy_text}`).then(() => alert('Copied to clipboard!'));">Copy Grocery List</button>
+            """, unsafe_allow_html=True)
+
+    if st.button("Append weekly plan CSV on GitHub"):
+        try:
+            plan_df = pd.DataFrame(list(st.session_state.manPlan.items()), columns=["Day", "Recipe"])
+            update_github_file_append_with_timestamp(
+                "ZaneKelley12/grocery",  # Replace with your GitHub repo path
+                "weekly_meal_plan.csv",
+                plan_df,
+                "Append manual weekly meal plan CSV with timestamp from Streamlit app"
+            )
+            st.success("GitHub file updated with appended data and timestamp!")
+        except Exception as e:
+            st.error(f"Error updating GitHub file: {e}")
