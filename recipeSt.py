@@ -122,25 +122,28 @@ elif menu_choice == "Randomly generate weekly plan":
             for item in grocery_list:
                 st.write(item)
             # Copy to clipboard button with styled HTML
-            copy_text = "\n".join(grocery_list)
-            st.markdown(f"""
-                <style>
-                .copy-btn {{
-                    background-color: #4CAF50;
-                    border: none;
-                    color: white;
-                    padding: 8px 16px;
-                    text-align: center;
-                    text-decoration: none;
-                    display: inline-block;
-                    font-size: 14px;
-                    margin: 4px 2px;
-                    cursor: pointer;
-                    border-radius: 4px;
-                }}
-                </style>
-                <button class="copy-btn" onclick="navigator.clipboard.writeText(`{copy_text}`).then(() => alert('Copied to clipboard!'));">Copy Grocery List</button>
-                """, unsafe_allow_html=True)
+            copy_text = "\n".join(grocery_list).replace("`", "'")  # replace backticks to avoid JS issues
+
+            copy_button_html = f'''
+            <style>
+            .copy-btn {{
+                background-color: #4CAF50;
+                border: none;
+                color: white;
+                padding: 8px 16px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 14px;
+                margin: 4px 2px;
+                cursor: pointer;
+                border-radius: 4px;
+            }}
+            </style>
+            <button class="copy-btn" onclick="navigator.clipboard.writeText('{copy_text}').then(() => alert('Copied to clipboard!'));">Copy Grocery List</button>
+            '''
+
+            st.markdown(copy_button_html, unsafe_allow_html=True)
     with col3:
         if st.button("Append weekly plan CSV on GitHub"):
             try:
@@ -183,25 +186,28 @@ elif menu_choice == "Manually create weekly plan":
         st.subheader("Grocery List")
         for item in grocery_list:
             st.write(item)
-        copy_text = "\n".join(grocery_list)
-        st.markdown(f"""
-            <style>
-            .copy-btn {{
-                background-color: #4CAF50;
-                border: none;
-                color: white;
-                padding: 8px 16px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 14px;
-                margin: 4px 2px;
-                cursor: pointer;
-                border-radius: 4px;
-            }}
-            </style>
-            <button class="copy-btn" onclick="navigator.clipboard.writeText(`{copy_text}`).then(() => alert('Copied to clipboard!'));">Copy Grocery List</button>
-            """, unsafe_allow_html=True)
+        copy_text = "\n".join(grocery_list).replace("`", "'")  # replace backticks to avoid JS issues
+
+        copy_button_html = f'''
+        <style>
+        .copy-btn {{
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }}
+        </style>
+        <button class="copy-btn" onclick="navigator.clipboard.writeText('{copy_text}').then(() => alert('Copied to clipboard!'));">Copy Grocery List</button>
+        '''
+
+        st.markdown(copy_button_html, unsafe_allow_html=True)
 
     if st.button("Append weekly plan CSV on GitHub"):
         try:
