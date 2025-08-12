@@ -16,6 +16,7 @@ recipeDinner = {
 
 days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
+
 # ==== Grocery List Function ====
 def grocer(randPlan):
     grocList = []
@@ -44,6 +45,7 @@ def grocer(randPlan):
 
     return sorted(result)
 
+
 # ==== Streamlit UI ====
 st.title("Weekly Meal Planner")
 st.sidebar.header("Menu Options")
@@ -52,6 +54,36 @@ menu_choice = st.sidebar.radio(
     "Choose an option:",
     ["View recipe book", "Randomly generate weekly plan", "Manually create weekly plan"]
 )
+
+
+def display_editable_grocery_list(plan_key):
+    # Generate grocery list from the current plan
+    grocery_list = grocer(st.session_state[plan_key])
+    grocery_text = "\n".join(grocery_list)
+
+    # Initialize edited grocery list in session_state if not already present
+    edited_key = f"edited_grocery_{plan_key}"
+    if edited_key not in st.session_state:
+        st.session_state[edited_key] = grocery_text
+
+    st.subheader("Editable Grocery List")
+    # Editable multiline text area
+    edited_text = st.text_area("Edit your grocery list below:", st.session_state[edited_key], height=200)
+
+    # Save edits back to session state
+    st.session_state[edited_key] = edited_text
+
+    # Optionally add buttons
+    col1, col2 = st.columns(2)
+    with col1:
+        if st.button("Reset List"):
+            st.session_state[edited_key] = grocery_text
+            st.experimental_rerun()  # refresh to update the textarea
+    with col2:
+        if st.button("Clear List"):
+            st.session_state[edited_key] = ""
+            st.experimental_rerun()
+
 
 # --- Option 1: View Recipe Book ---
 if menu_choice == "View recipe book":
@@ -76,9 +108,7 @@ elif menu_choice == "Randomly generate weekly plan":
 
     with col2:
         if st.button("Generate Grocery List"):
-            st.subheader("Grocery List")
-            for item in grocer(st.session_state.randPlan):
-                st.write(item)
+            display_editable_grocery_list("randPlan")
 
     st.subheader("Weekly Plan")
     for day in days:
@@ -102,6 +132,4 @@ elif menu_choice == "Manually create weekly plan":
         )
 
     if st.button("Generate Grocery List"):
-        st.subheader("Grocery List")
-        for item in grocer(st.session_state.manPlan):
-            st.write(item)
+        display_editable_grocery_list("manPlan")
