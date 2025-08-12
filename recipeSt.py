@@ -1,6 +1,7 @@
 import random
 import streamlit as st
 from collections import defaultdict
+import streamlit_js_eval
 
 # ==== Recipe Catalog ====
 recipeDinner = {
@@ -57,32 +58,31 @@ menu_choice = st.sidebar.radio(
 
 
 def display_editable_grocery_list(plan_key):
-    # Generate grocery list from the current plan
     grocery_list = grocer(st.session_state[plan_key])
     grocery_text = "\n".join(grocery_list)
 
-    # Initialize edited grocery list in session_state if not already present
     edited_key = f"edited_grocery_{plan_key}"
     if edited_key not in st.session_state:
         st.session_state[edited_key] = grocery_text
 
     st.subheader("Editable Grocery List")
-    # Editable multiline text area
     edited_text = st.text_area("Edit your grocery list below:", st.session_state[edited_key], height=200)
-
-    # Save edits back to session state
     st.session_state[edited_key] = edited_text
 
     col1, _ = st.columns(2)
     with col1:
         if st.button("Reset List"):
             st.session_state[edited_key] = grocery_text
-            st.experimental_rerun()  # refresh to update the textarea
+            st.experimental_rerun()
 
-    # Copy to clipboard button
     if st.button("Copy to Clipboard"):
-        st.experimental_set_clipboard(st.session_state[edited_key])
-        st.success("Copied grocery list to clipboard!")
+        # JS to copy to clipboard and alert user
+        js_code = f"""
+        navigator.clipboard.writeText(`{st.session_state[edited_key]}`).then(() => {{
+            alert('Copied grocery list to clipboard!');
+        }});
+        """
+        streamlit_js_eval.st_javascript(js_code)
 
 
 # --- Option 1: View Recipe Book ---
