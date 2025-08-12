@@ -73,16 +73,16 @@ def display_editable_grocery_list(plan_key):
     # Save edits back to session state
     st.session_state[edited_key] = edited_text
 
-    # Optionally add buttons
-    col1, col2 = st.columns(2)
+    col1, _ = st.columns(2)
     with col1:
         if st.button("Reset List"):
             st.session_state[edited_key] = grocery_text
             st.experimental_rerun()  # refresh to update the textarea
-    with col2:
-        if st.button("Clear List"):
-            st.session_state[edited_key] = ""
-            st.experimental_rerun()
+
+    # Copy to clipboard button
+    if st.button("Copy to Clipboard"):
+        st.experimental_set_clipboard(st.session_state[edited_key])
+        st.success("Copied grocery list to clipboard!")
 
 
 # --- Option 1: View Recipe Book ---
