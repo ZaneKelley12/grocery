@@ -59,28 +59,16 @@ def update_github_file_append_with_timestamp(repo_name, file_path, new_plan_df, 
     new_plan_df["Timestamp"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     try:
-        # Get existing file content
         file = repo.get_contents(file_path)
         existing_content = base64.b64decode(file.content).decode("utf-8")
-
-        # Read existing CSV into DataFrame
         existing_df = pd.read_csv(io.StringIO(existing_content))
-
-        # Append new data
         combined_df = pd.concat([existing_df, new_plan_df], ignore_index=True)
-
-        # Remove exact duplicates
         combined_df.drop_duplicates(inplace=True)
-
-        # Convert back to CSV string
         csv_buffer = io.StringIO()
         combined_df.to_csv(csv_buffer, index=False)
         updated_content = csv_buffer.getvalue()
-
-        # Update file on GitHub
         repo.update_file(file.path, commit_message, updated_content, file.sha)
     except Exception:
-        # If file doesn't exist, create fresh
         csv_buffer = io.StringIO()
         new_plan_df.to_csv(csv_buffer, index=False)
         repo.create_file(file_path, commit_message, csv_buffer.getvalue())
@@ -121,35 +109,12 @@ elif menu_choice == "Randomly generate weekly plan":
             st.subheader("Grocery List")
             for item in grocery_list:
                 st.write(item)
-            # Copy to clipboard button with styled HTML
-            copy_text = "\n".join(grocery_list).replace("`", "'")  # replace backticks to avoid JS issues
-
-            copy_button_html = f'''
-            <style>
-            .copy-btn {{
-                background-color: #4CAF50;
-                border: none;
-                color: white;
-                padding: 8px 16px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 14px;
-                margin: 4px 2px;
-                cursor: pointer;
-                border-radius: 4px;
-            }}
-            </style>
-            <button class="copy-btn" onclick="navigator.clipboard.writeText('{copy_text}').then(() => alert('Copied to clipboard!'));">Copy Grocery List</button>
-            '''
-
-            st.markdown(copy_button_html, unsafe_allow_html=True)
     with col3:
         if st.button("Append weekly plan CSV on GitHub"):
             try:
                 plan_df = pd.DataFrame(list(st.session_state.randPlan.items()), columns=["Day", "Recipe"])
                 update_github_file_append_with_timestamp(
-                    "ZaneKelley12/grocery",  # Replace with your GitHub repo path
+                    "ZaneKelley12/grocery",
                     "weekly_meal_plan.csv",
                     plan_df,
                     "Append random weekly meal plan CSV with timestamp from Streamlit app"
@@ -186,34 +151,12 @@ elif menu_choice == "Manually create weekly plan":
         st.subheader("Grocery List")
         for item in grocery_list:
             st.write(item)
-        copy_text = "\n".join(grocery_list).replace("`", "'")  # replace backticks to avoid JS issues
-
-        copy_button_html = f'''
-        <style>
-        .copy-btn {{
-            background-color: #4CAF50;
-            border: none;
-            color: white;
-            padding: 8px 16px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 14px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 4px;
-        }}
-        </style>
-        <button class="copy-btn" onclick="navigator.clipboard.writeText('{copy_text}').then(() => alert('Copied to clipboard!'));">Copy Grocery List</button>
-        '''
-
-        st.markdown(copy_button_html, unsafe_allow_html=True)
 
     if st.button("Append weekly plan CSV on GitHub"):
         try:
             plan_df = pd.DataFrame(list(st.session_state.manPlan.items()), columns=["Day", "Recipe"])
             update_github_file_append_with_timestamp(
-                "ZaneKelley12/grocery",  # Replace with your GitHub repo path
+                "ZaneKelley12/grocery",
                 "weekly_meal_plan.csv",
                 plan_df,
                 "Append manual weekly meal plan CSV with timestamp from Streamlit app"
