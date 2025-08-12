@@ -1,7 +1,7 @@
 import random
 import streamlit as st
 from collections import defaultdict
-import streamlit_js_eval
+import streamlit.components.v1 as components
 
 # ==== Recipe Catalog ====
 recipeDinner = {
@@ -47,6 +47,21 @@ def grocer(randPlan):
     return sorted(result)
 
 
+# ==== Custom JS copy-to-clipboard button ====
+def copy_to_clipboard(text):
+    js = f"""
+    <script>
+    function copyTextToClipboard() {{
+        navigator.clipboard.writeText(`{text}`).then(() => {{
+            alert('Copied grocery list to clipboard!');
+        }});
+    }}
+    </script>
+    <button onclick="copyTextToClipboard()" style="padding:8px 16px; margin-top:10px;">Copy to Clipboard</button>
+    """
+    components.html(js)
+
+
 # ==== Streamlit UI ====
 st.title("Weekly Meal Planner")
 st.sidebar.header("Menu Options")
@@ -75,14 +90,7 @@ def display_editable_grocery_list(plan_key):
             st.session_state[edited_key] = grocery_text
             st.experimental_rerun()
 
-    if st.button("Copy to Clipboard"):
-        # JS to copy to clipboard and alert user
-        js_code = f"""
-        navigator.clipboard.writeText(`{st.session_state[edited_key]}`).then(() => {{
-            alert('Copied grocery list to clipboard!');
-        }});
-        """
-        streamlit_js_eval.st_javascript(js_code)
+    copy_to_clipboard(st.session_state[edited_key])
 
 
 # --- Option 1: View Recipe Book ---
