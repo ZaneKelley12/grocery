@@ -24,7 +24,8 @@ recipeDinner = {
     "Chicken Parm": ["Red Bag Chicken", "Tomato Sauce", "Italian Cheese"],
     "Rice Bowl": ["Chicken", "Edamame", "Rice", "Asian Sauce"],
     "Pierogis and Brussels": ["Pierogis", "Brussel Sprouts"],
-    "Ramen": ["Ramen"]
+    "Ramen": ["Ramen"],
+    "Bratwurst": ["Bratwurst", "Mashed Potatoes", "Sauerkraut"]
 }
 
 days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
