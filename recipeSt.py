@@ -23,7 +23,8 @@ recipeDinner = {
     "Chicken Tacos": ["Chicken", "Mexican Cheese", "Corn Tortillas"],
     "Chicken Parm": ["Red Bag Chicken", "Tomato Sauce", "Italian Cheese"],
     "Rice Bowl": ["Chicken", "Edamame", "Rice", "Asian Sauce"],
-    "Pierogis and Brussels": ["Pierogis", "Brussel Sprouts"]
+    "Pierogis and Brussels": ["Pierogis", "Brussel Sprouts"],
+    "Ramen": ["Ramen"]
 }
 
 days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
