@@ -15,8 +15,15 @@ recipeDinner = {
     "Grilled Cheese": ["Bread", "American Cheese", "Tomato Soup"],
     "Cauliflower Skillet": ["Cauliflower", "Mushrooms", "Tofu"],
     "Sausage Skillet": ["White Beans", "White Beans", "Smoked Sausage", "Spinach"],
-    "Fried Rice": ["Rice", "Veggies"],
-    "Vodka Pasta": ["Tomato Paste", "Heavy Cream"]
+    "Fried Rice": ["Rice", "Veggies", "Tofu"],
+    "Vodka Pasta": ["Tomato Paste", "Heavy Cream"],
+    "Egg Roll Bowl": ["Sausage", "Cole Slaw", "Rice"],
+    "Croissant Dogs": ["Hot Dogs", "Croissants"],
+    "Fiesta Lime Chicken": ["Chicken", "Mexican Cheese", "Salsa", "Ranch", "Mexican Rice"],
+    "Chicken Tacos": ["Chicken", "Mexican Cheese", "Corn Tortillas"],
+    "Chicken Parm": ["Red Bag Chicken", "Tomato Sauce", "Italian Cheese"],
+    "Rice Bowl": ["Chicken", "Edamame", "Rice", "Asian Sauce"],
+    "Pierogis and Brussels": ["Pierogis", "Brussel Sprouts"]
 }
 
 days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
