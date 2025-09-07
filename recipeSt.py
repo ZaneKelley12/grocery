@@ -25,7 +25,8 @@ recipeDinner = {
     "Rice Bowl": ["Chicken", "Edamame", "Rice", "Asian Sauce"],
     "Pierogis and Brussels": ["Pierogis", "Brussel Sprouts"],
     "Ramen": ["Ramen"],
-    "Bratwurst": ["Bratwurst", "Mashed Potatoes", "Sauerkraut"]
+    "Bratwurst": ["Bratwurst", "Mashed Potatoes", "Sauerkraut"],
+    "Goulash": ["Lentils", "Diced Tomatoes Can", "Tomato Sauce Can", "Elbow Macaroni", "Yellow Onion"]
 }
 
 days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
