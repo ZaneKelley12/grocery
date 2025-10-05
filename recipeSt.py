@@ -27,7 +27,8 @@ recipeDinner = {
     "Ramen": ["Ramen"],
     "Bratwurst": ["Bratwurst", "Mashed Potatoes", "Sauerkraut"],
     "Goulash": ["Lentils", "Diced Tomatoes Can", "Tomato Sauce Can", "Elbow Macaroni", "Yellow Onion"],
-    "Dumplings": ["Dumplings", "Cucumber", "Soy Sauce", "Rice Vinegar"]
+    "Dumplings": ["Dumplings", "Cucumber", "Soy Sauce", "Rice Vinegar"],
+    "Minestrone": ["Onion", "Carrot", "Celery", "Crushed Tomatoes", "Elbow Macaroni", "White Beans", "Spinach"]
 }
 
 days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
