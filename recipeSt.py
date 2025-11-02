@@ -29,7 +29,9 @@ recipeDinner = {
     "Goulash": ["Lentils", "Diced Tomatoes Can", "Tomato Sauce Can", "Elbow Macaroni", "Yellow Onion"],
     "Dumplings": ["Dumplings", "Cucumber", "Soy Sauce", "Rice Vinegar"],
     "Minestrone": ["Onion", "Carrot", "Celery", "Crushed Tomatoes", "Elbow Macaroni", "White Beans", "Spinach"],
-    "Chili": ["Ground Beef", "Onion", "Crushed Tomatoes", "Crushed Tomatoes", "Kidney Beans", "Beef Broth", "Chili Seasoning"]
+    "Chili": ["Ground Beef", "Onion", "Crushed Tomatoes", "Crushed Tomatoes", "Kidney Beans", "Beef Broth", "Chili Seasoning"],
+    "Marry Me Chicken Soup": ["Chicken", "Sun-Dried Tomatoes", "Heavy Cream", "Cream Cheese", " Tomato Paste", "Macaroni", "Chicken Broth", "Onion"],
+    "French Onion Soup": ["Onion", "Beef Broth", "Provolone"]
 }
 
 days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
