@@ -33,6 +33,7 @@ recipeDinner = {
     "Marry Me Chicken Soup": ["Chicken", "Sun-Dried Tomatoes", "Heavy Cream", "Cream Cheese", " Tomato Paste", "Macaroni", "Chicken Broth", "Onion"],
     "French Onion Soup": ["Onion", "Beef Broth", "Provolone"],
     "Pizza": ["Pizza"],
+    "Chicken and Dumpling Soup": ["Chicken", "Biscuits", "Celery", "Carrots", "Onion"],
     "NA": []
 }
 
