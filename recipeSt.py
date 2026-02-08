@@ -36,6 +36,7 @@ recipeDinner = {
     "Chicken and Dumpling Soup": ["Chicken", "Biscuits", "Celery", "Carrots", "Onion"],
     "Chicken Noodle Soup": ["Chicken", "Egg Noodle", "Celery", "Carrots", "Onion"],
     "Tortellini Soup": ["Tortellini", "Spinach", "Mini Meatballs", "Carrots", "Onion"],
+    "Steak": ["Steak", "Potatoes", "Brussel Sprouts"],
     "NA": []
 }
 
