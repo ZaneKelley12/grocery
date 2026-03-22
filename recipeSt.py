@@ -38,6 +38,7 @@ recipeDinner = {
     "Tortellini Soup": ["Tortellini", "Spinach", "Mini Meatballs", "Carrots", "Onion"],
     "Steak": ["Steak", "Potatoes", "Brussel Sprouts"],
     "Garlic Potato Soup": ["Russet Potatoes", "Garlic", "Onion", "Vegetable Broth"],
+    "Leek Pasta": ["Farfalle", "Leek", "Onion", "Heavy Cream"],
     "NA": []
 }
 
