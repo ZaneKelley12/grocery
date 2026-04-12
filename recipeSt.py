@@ -39,6 +39,7 @@ recipeDinner = {
     "Steak": ["Steak", "Potatoes", "Brussel Sprouts"],
     "Garlic Potato Soup": ["Russet Potatoes", "Garlic", "Onion", "Vegetable Broth"],
     "Leek Pasta": ["Farfalle", "Leek", "Onion", "Heavy Cream"],
+    "Anchovy Pasta": ["Spaghetti", "Anchovy", "Bread Crumbs"],
     "NA": []
 }
 
