@@ -40,6 +40,7 @@ recipeDinner = {
     "Garlic Potato Soup": ["Russet Potatoes", "Garlic", "Onion", "Vegetable Broth"],
     "Leek Pasta": ["Farfalle", "Leek", "Onion", "Heavy Cream"],
     "Anchovy Pasta": ["Spaghetti", "Anchovy", "Bread Crumbs"],
+    "Enchiladas": ["Tortillas", "Beef", "Enchilada Sauce (20 oz)", "Green Chiles", "Shredded Cheddar"],
     "NA": []
 }
 
