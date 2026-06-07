@@ -41,6 +41,8 @@ recipeDinner = {
     "Leek Pasta": ["Farfalle", "Leek", "Onion", "Heavy Cream"],
     "Anchovy Pasta": ["Spaghetti", "Anchovy", "Bread Crumbs"],
     "Enchiladas": ["Tortillas", "Beef", "Enchilada Sauce (20 oz)", "Green Chiles", "Shredded Cheddar"],
+    "Tofu Bowl": ["Rice", "Frozen Broccoli", "Gochujang", "Tofu"],
+    "Chicken Sandwich": ["Chicken", "Buns", "Pickles", "Fries"],
     "NA": []
 }
 
