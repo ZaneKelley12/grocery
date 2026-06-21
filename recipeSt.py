@@ -43,6 +43,7 @@ recipeDinner = {
     "Enchiladas": ["Tortillas", "Beef", "Enchilada Sauce (20 oz)", "Green Chiles", "Shredded Cheddar"],
     "Tofu Bowl": ["Rice", "Frozen Broccoli", "Gochujang", "Tofu"],
     "Chicken Sandwich": ["Chicken", "Buns", "Pickles", "Fries"],
+    "Sheetpan Quesadilla": ["Tortillas", "Cheese", "Chicken Thighs", "Onion", "Taco Mix", "Salsa", "Sour Cream"],
     "NA": []
 }
 
