@@ -16,7 +16,7 @@ recipeDinner = {
     "Cauliflower Skillet": ["Cauliflower", "Mushrooms", "Tofu"],
     "Sausage Skillet": ["White Beans", "White Beans", "Smoked Sausage", "Spinach"],
     "Fried Rice": ["Rice", "Veggies", "Tofu"],
-    "Vodka Pasta": ["Tomato Paste", "Heavy Cream"],
+    "Vodka Pasta": ["Tomato Paste", "Heavy Cream", "Spinach"],
     "Egg Roll Bowl": ["Sausage", "Cole Slaw", "Rice"],
     "Croissant Dogs": ["Hot Dogs", "Croissants"],
     "Fiesta Lime Chicken": ["Chicken", "Mexican Cheese", "Salsa", "Ranch", "Mexican Rice"],
