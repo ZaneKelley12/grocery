@@ -9,7 +9,7 @@ from github import Github
 
 # ==== Recipe Catalog ====
 recipeDinner = {
-    "Burrito": ["Refried Beans", "Tortillas", "Mexican Cheese", "Rice"],
+    "Burrito": ["Refried Beans", "Tortillas", "Mexican Cheese", "Rice", "Corn Salsa"],
     "Tilapia": ["Tilapia", "Green Beans", "Couscous"],
     "Chickpea Curry": ["Chickpeas", "Rice", "Curry Sauce"],
     "Grilled Cheese": ["Bread", "American Cheese", "Tomato Soup"],
@@ -44,6 +44,7 @@ recipeDinner = {
     "Tofu Bowl": ["Rice", "Frozen Broccoli", "Gochujang", "Tofu"],
     "Chicken Sandwich": ["Chicken", "Buns", "Pickles", "Fries"],
     "Sheetpan Quesadilla": ["Tortillas", "Cheese", "Chicken Thighs", "Onion", "Taco Mix", "Salsa", "Sour Cream"],
+    "Bean Curry": ["Curry", "Cannelini Beans", "Rice"],
     "NA": []
 }
 
