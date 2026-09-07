@@ -45,6 +45,7 @@ recipeDinner = {
     "Chicken Sandwich": ["Chicken", "Buns", "Pickles", "Fries"],
     "Sheetpan Quesadilla": ["Tortillas", "Cheese", "Chicken Thighs", "Onion", "Taco Mix", "Salsa", "Sour Cream"],
     "Bean Curry": ["Curry", "Cannelini Beans", "Rice"],
+    "Wonton Soup": ["Dumplings", "Green Onion", "Mushroom"],
     "NA": []
 }
 
