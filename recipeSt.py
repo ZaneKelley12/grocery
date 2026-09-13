@@ -44,8 +44,9 @@ recipeDinner = {
     "Tofu Bowl": ["Rice", "Frozen Broccoli", "Gochujang", "Tofu"],
     "Chicken Sandwich": ["Chicken", "Buns", "Pickles", "Fries"],
     "Sheetpan Quesadilla": ["Tortillas", "Cheese", "Chicken Thighs", "Onion", "Taco Mix", "Salsa", "Sour Cream"],
-    "Bean Curry": ["Curry", "Cannelini Beans", "Rice"],
+    "Bean Curry": ["Curry", "Cannellini Beans", "Rice"],
     "Wonton Soup": ["Dumplings", "Green Onion", "Mushroom"],
+    "White Chicken Chili": ["Chicken Thighs", "Green Chilies", "Cannellini Beans (x2)", "Corn", "Cream Cheese"],
     "NA": []
 }
 
