@@ -47,6 +47,7 @@ recipeDinner = {
     "Bean Curry": ["Curry", "Cannellini Beans", "Rice"],
     "Wonton Soup": ["Dumplings", "Green Onion", "Mushroom"],
     "White Chicken Chili": ["Chicken Thighs", "Green Chilies", "Cannellini Beans (x2)", "Corn", "Cream Cheese"],
+    "Beef Stroganoff": ["Beef", "Onion", "Mushrooms", "Sour Cream", "Egg Noodles"],
     "NA": []
 }
 
