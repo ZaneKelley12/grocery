@@ -48,6 +48,8 @@ recipeDinner = {
     "Wonton Soup": ["Dumplings", "Green Onion", "Mushroom"],
     "White Chicken Chili": ["Chicken Thighs", "Green Chilies", "Cannellini Beans (x2)", "Corn", "Cream Cheese"],
     "Beef Stroganoff": ["Beef", "Onion", "Mushrooms", "Sour Cream", "Egg Noodles"],
+    "Stuffed Cabbage": ["Cabbage", "Eggs", "Ground Beef", "Onions", "Rice", "Condensed Tomato Soup"],
+    "Breakfast": ["Eggs", "Bacon", "Hashbrowns"],
     "NA": []
 }
 
