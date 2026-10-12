@@ -50,6 +50,7 @@ recipeDinner = {
     "Beef Stroganoff": ["Beef", "Onion", "Mushrooms", "Sour Cream", "Egg Noodles"],
     "Stuffed Cabbage": ["Cabbage", "Eggs", "Ground Beef", "Onions", "Rice", "Condensed Tomato Soup"],
     "Breakfast": ["Eggs", "Bacon", "Hashbrowns"],
+    "Ground Chicken Parm": ["Eggs", "Ground Chicken", "Tomato Sauce", "Spaghetti"],
     "NA": []
 }
 
